@@ -2,9 +2,11 @@
 
 #Define list of Shellys
 shellys=("192.168.173.10" "192.168.173.11" "192.168.173.12" )
+user="admin"
+password="password"
 
 for i in "${shellys[@]}"; do
-  has_update="$(curl http://$i/status --user admin:admin --output - -s | python3 -c "import sys, json; print(json.load(sys.stdin)['has_update'])")"
+  has_update="$(curl http://$i/status --user $user:$password --output - -s | python3 -c "import sys, json; print(json.load(sys.stdin)['has_update'])")"
   if [ $has_update = "True" ]
    then
     echo "1 \"Shelly Firmware $i\" - has update pending."
